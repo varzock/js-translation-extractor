@@ -39,6 +39,21 @@ final class JsTest extends TestCase
         $this->assertCount(6, $collection);
     }
 
+    public function testMdExtractTrans()
+    {
+        $path = 'Js/transMd.js';
+        $collection = $this->getTranslationStrings($path);
+
+        $this->assertValidExtraction($path, $collection->first(), 'arg-key', [], 1);
+        $this->assertValidExtraction($path, $collection->get(1), 'arg-key-params', [], 2);
+        $this->assertValidExtraction($path, $collection->get(2), 'arg-key-params-domain', ['domain' => 'domain_name'], 3);
+        $this->assertValidExtraction($path, $collection->get(3), 'arg-key-params-filled', [], 4);
+        $this->assertValidExtraction($path, $collection->get(4), 'multiline-arg-key-params-filled-domain', ['domain' => 'crazy-domain'], 5);
+        $this->assertValidExtraction($path, $collection->get(5), 'multiline-tab-arg-key-params-filled-domain', ['domain' => 'real-crazy-domain'], 10);
+
+        $this->assertCount(6, $collection);
+    }
+
     public function testExtractTransChoice()
     {
         $path = 'Js/transChoice.js';
@@ -57,6 +72,21 @@ final class JsTest extends TestCase
     public function testExtractTransReact()
     {
         $path = 'Js/trans-react.jsx';
+        $collection = $this->getTranslationStrings($path);
+
+        $this->assertValidExtraction($path, $collection->first(), 'arg-key', [], 7);
+        $this->assertValidExtraction($path, $collection->get(1), 'arg-key-params', [], 8);
+        $this->assertValidExtraction($path, $collection->get(2), 'arg-key-params-domain', ['domain' => 'domain_name'], 9);
+        $this->assertValidExtraction($path, $collection->get(3), 'arg-key-params-filled', [], 10);
+        $this->assertValidExtraction($path, $collection->get(4), 'multiline-arg-key-params-filled-domain', ['domain' => 'crazy-domain'], 11);
+        $this->assertValidExtraction($path, $collection->get(5), 'multiline-tab-arg-key-params-filled-domain', ['domain' => 'real-crazy-domain'], 16);
+
+        $this->assertCount(6, $collection);
+    }
+
+    public function testExtractTransMdReact()
+    {
+        $path = 'Js/transMd-react.jsx';
         $collection = $this->getTranslationStrings($path);
 
         $this->assertValidExtraction($path, $collection->first(), 'arg-key', [], 7);
